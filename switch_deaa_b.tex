@@ -1,0 +1,159 @@
+\documentclass[11pt]{article}
+
+\usepackage{lscape,color}
+\usepackage[normalem]{ulem}
+
+\topmargin -0.75truein
+\oddsidemargin -0.4truein
+\textheight 9.25truein
+\textwidth 6.7truein
+\hbadness=10001
+\hfuzz=200pt
+
+\begin{document}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\bt}{\begin{tabbing}}
+\newcommand{\et}{\end{tabbing}}
+\newcommand{\eg}{{\it e.g.~}}
+\newcommand{\ie}{{\it i.e.~}}
+\newcommand{\ul}{\underline}
+\newcommand{\axaf}{{\em AXAF}}
+\def\la{\hbox{\rlap{$<$}\lower0.5ex\hbox{$\sim$}\ }}
+
+\centerline{\large {\bf \textcolor{red}{5.9\_V2.2} SWITCH FROM DEA A TO DEA B }}
+\vspace{0.25in}
+
+\noindent{\it Last Revised: June 17, 2016}\\
+\noindent{\bf Filename: switch\_deaa\_b} \\
+
+
+\noindent{\bf BRIEF FUNCTIONAL DESCRIPTION:}\\
+
+\textcolor{red}{This is a contingency procedure to switch from powering the DEA from the
+A-side of the PSMC to powering it from the B-side.
+After switching DEA input power and reestablishing control of the
+focal plane heaters, the magnetic relays that control pairs
+of video boards are thrown one at a time,
+and those two video boards are powered up separately,
+while verifying that the PSMC doesn't report a current overflow.}
+
+\vspace{0.15in}
+
+\noindent The sequence of actions will be:
+{\color{red}
+\begin{itemize}
+\item Power down the video boards (skip if not powered)
+
+\item Turn off and disable the DEA side A power supply (skip if not enabled and on)
+
+\item Verify that all DEA side B heaters are off and disabled
+
+\item Enable and turn on the DEA side B power supply
+
+\item Perform a warm boot of the active BEP
+
+\item Start DEA interface housekeeping
+
+\item Enable DEA-B to assume control of the focal plane temperature
+by commanding it to $-122^\circ$~C and then to $-120^\circ$~C
+
+\item Switch the video board relays one at a time,
+wait for PSMC telemetry verifiers to refresh,
+and verify that DEA-B hasn't powered down due to an overcurrent
+or overvoltage condition
+
+\item After switching each pair of video boards,
+power up each of the two boards, waiting for PSMC telemetry verifiers to refresh,
+and verifying that DEA-B hasn't powered down due to an overcurrent
+or overvoltage condition
+
+\item Power down all video boards
+
+\item Dump the system configuration table
+\end{itemize}
+}
+
+\vspace{0.15in}
+
+\noindent{\bf ASSUMED INSTRUMENT STATE:}
+\bi
+\item Assumes that DPA A and/or DPA B is on and that the flight SW is running.
+\item \sout{Assumes that DEA A is on.}
+\ei
+
+\vspace{0.15in}
+
+\noindent{\bf SPECIAL INITIAL CONDITIONS:}
+{\color{red}
+\bi
+\item Assumes that telemetry is in Format 1 or 2.
+\item Assumes that neither the bakeout heater nor the detector housing heater is
+being powered by DEA-B. If they are, switch them off and, if the procedure ends
+with the DEA powered from DEA-B, consider enabling and turning them on again
+on DEA-A.
+\ei}
+
+\newpage
+
+\noindent{\bf CHANGE HISTORY:}
+
+\bd
+\item {\bf Version 1.2}
+\bi
+\item added a new step 1 to start a DEA HKP run if necessary
+\item changed HW TLM verifiers to check state of DEA A and DEA B in
+steps 2.1 and 3.2
+\item added a new step 5 to warmboot the active BEP
+\item added a command in step 6 to set the focal plane temperature to
+$-120^\circ$~C
+\item added operational constraint/caution that the B side does not
+produce the telltales to verify the state of the relays
+\ei
+
+\item {\bf Version 2.0}
+\bi
+\item ACIS Team signed-off version
+\item changed expected value of ``1STAT7ST'' in step 5.6
+\ei
+
+\item {\bf Version 2.1}
+\bi
+\item changed comment in step 1.2 to read ``check FP temp''
+\item changed telemetry verified in step 5.5 to read ``version=??''
+  and changed comment to read ``version \# depends on loaded patches,
+  if any''
+\item changed expected value of ``1STAT7ST'' in step 5.6
+\item changed command in step 6.2 to WSFTNEG121
+\item added to ``Assumed Instrument State'', ``Assumes DEA A is on''
+\ei
+
+{\color{red}
+\item {\bf Version 2.2}
+\bi
+\item added explicit step to verify that 28V heaters are off before powering DEA-B
+\item replaced warm boot with FP temperature changes
+\item replaced command to switch all 5 relays simultaneously with 5 sets of 3 commands:
+a command to switch one of the relays,
+followed by a pair of commands to power up each of the two boards controlled by that relay
+\item added command to power up 6 FEPs
+\item added bias-only run to acquire housekeeping from ACIS-I boards
+\item added bias-only run to acquire housekeeping from ACIS-S boards
+\item added command to power down all video boards
+\ei}
+\ed
+
+\newpage\
+\vspace{0.4\textheight}
+\bc This page is intentionally blank \ec
+
+\newcommand{\tablecaptiontext}{SWITCH FROM DEA A TO DEA B}
+\input{switch_deaa_b.tab}
+
+\end{document}

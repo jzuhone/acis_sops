@@ -1,0 +1,31 @@
+Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telemetry	Other	Crit	Description	Notes	RT	Tlm	Min	SIM
+\#	4.5\_V2.5	(mins)	Description	Mnemonic	EGSE	Key	Description	Mnemonic	Value		EGSE	Verifier				Con	Fmt	Alt	Pos
+1	Turn on DEA A																		
+1.1	Verify DEA B is off						DEA B ENB/DIS	1DEPSBX	DIS					Ignore verifier if DPA A and B unpowered			1,2,4,6		
+							DEA B ON/OFF	1DEPSB	OFF					Ignore verifier if DPA A and B unpowered					
+							DEA Input V B	1DE28BVO	25.0--34.0	V									
+							DEA +28 V B	1DEP3BVO	$0.0\pm0.5$	V									
+							DEA +24 V B	1DEP2BVO	$0.0\pm0.5$	V									
+							DEA +15 V B	1DEP1BVO	$0.0\pm0.5$	V									
+							DEA +6 V B	1DEP0BVO	$0.0\pm0.5$	V									
+							DEA -6 V B	1DEN0BVO	$0.0\pm0.5$	V									
+							DEA -15 V B	1DEN1BVO	$0.0\pm0.5$	V									
+1.2	Enable DEA PS A	1	DEA PS A En	1DEPSAEN			DEA A ENB/DIS	1DEPSAX	ENB				2	Ignore verifier if DPA A and B unpowered			1,2,4,6		
+1.3	DEA Power A On	1	DEA PS On A	1DEPSAON			DEA A ON/OFF	1DEPSA	ON				2	Ignore verifier if DPA A and B unpowered			1,2,4,6		
+							DEA Input V A	1DE28AVO	25.0--34.0	V			2	Expect DEA side A power $24\pm4$~W, current					
+							DEA +28 V A	1DEP3AVO	$>26.0$	V			2	is noisy so average needed (see figures).					
+							DEA +24 V A	1DEP2AVO	24.0--26.0	V			1						
+							DEA +15 V A	1DEP1AVO	15.0--17.0	V			2						
+							DEA +6 V A	1DEP0AVO	5.6--6.7	V			2	{\bf FP Temp unregulated}					
+							DEA -6 V A	1DEN0AVO	-7.0{--}-5.7	V			2	{\bf DEA Interface A/D in low-res mode}					
+							DEA -15 V A	1DEN1AVO	-17.0{--}-15.0	V			2						
+							DEA Input I A	1DEICACU	0.7--0.9	A			2						
+1.4	Verify DEA B is off						DEA B ENB/DIS	1DEPSBX	DIS					Ignore verifier if DPA A and B unpowered			1,2,4,6		
+							DEA B ON/OFF	1DEPSB	OFF					Ignore verifier if DPA A and B unpowered					
+							DEA Input V B	1DE28BVO	25.0--34.0	V									
+							DEA +28 V B	1DEP3BVO	$0.0\pm0.5$	V									
+							DEA +24 V B	1DEP2BVO	$0.0\pm0.5$	V									
+							DEA +15 V B	1DEP1BVO	$0.0\pm0.5$	V									
+							DEA +6 V B	1DEP0BVO	$0.0\pm0.5$	V									
+							DEA -6 V B	1DEN0BVO	$0.0\pm0.5$	V									
+							DEA -15 V B	1DEN1BVO	$0.0\pm0.5$	V									

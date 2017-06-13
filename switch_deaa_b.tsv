@@ -1,0 +1,70 @@
+Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telemetry	Other	Crit	Description	Notes	RT	Tlm	Min	SIM
+\#	5.9\_V2.2	(mins)	Description	Mnemonic	EGSE	Key	Description	Mnemonic	Value		EGSE	Verifier				Con	Fmt	Alt	Pos
+1	Power Down Video Boards													Skip if video boards off					
+1.1	Power off video boards\\	1 	changeConfigSetting 	WSVIDALLDN							Check cmdResult==OK\\commandEcho==1541		A			Y	"1,2"	60k	
+2	Turn off DEA-A input\\power	 	 	 	 	 	 	 	 	 	 	 	 	Skip if DEA-A unpowered					
+2.1	DEA Power A Off	1	DEA-A Power Off	1DEPSAOF				1DEPSA	OFF					Ignore if DPA unpowered	SF 4.4.2	Y	"1,2,4,6"	60k	
+							DEA +24 V A 	1DEP2AVO 	$0.0\pm0.5$	V 			1	Powers off DEA and board 11					
+							DEA Input V A	1DE28AVO 	25.0--34.0	V 			2	Expect DEA-A power ~0.0 W 					
+							DEA +6 V A 	1DEP0AVO 	$0.0\pm0.5$	V 			2						
+							DEA -6 V A 	1DEN0AVO 	$0.0\pm0.5$	V 			2						
+							DEA +15 V A 	1DEP1AVO 	$0.0\pm0.5$	V 			2						
+							DEA -15 V A 	1DEN1AVO 	$0.0\pm0.5$	V 			2						
+							DEA +28 V A 	1DEP3AVO 	$0.0\pm0.5$	V 			2						
+2.2	Disable DEA PS A	1	DEA-A Power Disable	1DEPSADS			DEA A Dis	1DEPSAX	DIS					Ignore if DPA unpowered	SF 4.4.1	Y	"1,2,4,6"	60k	
+3	Verify that DEA-B\\heaters are off
+3.1	Verify heaters off	1					DEA B DH Htr Off	1DAHTBON	OFF				1	Verify housing heater is off			"1,2,4,6"	60k	
+							DEA B DH Htr Dis	1DAHTBEN	DIS				2	Verify housing heater disabled					
+							DEA B Bakeout Off	1DABOBON	OFF				1	Verify bakeout heater is off					
+							DEA B Bakeout Dis	1DABOBEN	DIS				2	Verify bakeout heater disabled					
+4	Turn on DEA-B input\\power																
+4.1	Enable DEA PS B	1	DEA-B Power Enable	1DEPSBEN			DEA B En	1DEPSBX	ENB					Ignore if DPA unpowered		Y	"1,2,4,6"	60k	
+4.2	DEA Power B On	1	DEA-B Power On	1DEPSBON				1DEPSB	ON					Ignore if DPA unpowered		Y	"1,2,4,6"	60k	
+							DEA +24 V B	1DEP2BVO	24.0--26.0	V			1	Powers on DEA board 12					
+							DEA Input V B	1DE28BVO	25.0--34.0	V			2						
+							DEA Input I B	1DEICBCU	0.62--0.75	A			2	Expect DEA-B power $21\pm3$~W					
+							DEA +6 V B	1DEP0BVO	5.6--6.7	V			2						
+							DEA -6 V B	1DEN0BVO	-7-- -5.7	V			2						
+							DEA +15 V B	1DEP1BVO	15.0--17.0	V			2						
+							DEA -15 V B	1DEN1BVO	-17.0-- -15.0	V			2						
+							DEA +28 V B	1DEP3BVO	$>26.0$	V			2						
+5	Reboot active BEP																		
+5.1	DPA Boot Modifier	1	DPA Boot Modifier	1BMMODIBM(0)							Disable uplink boot					Y	"1,2"	60k	
+5.2	Set warm boot flag on	1	DPA Warm Boot	1WRMBTSB(1)							Warm boot active BEP					Y	"1,2"	60k	
+5.3	Halt BEP	1	DPA Command Reset	1RSETIRT(1)							Hold active BEP reset line					Y	"1,2"	60k	
+5.4	Restart BEP	1		1RSETIRT(0)							Release BEP reset line					Y	"1,2"	60k	
+5.5	Check BEP boot	2					bepStartupMessage				version$>11$								
+							swHousekeeping 	 	 	 	warmbootFlag=1
+ 	 	 	 	 	 	 	 	 	 	 	version$>11$	 
+5.6	Check HW LEDs	2					BEP select	1STAT4ST	0				2	0 indicates BEP-A is selected		Y	"1,2"	60k	
+							BEP FIFO not full	1STAT6ST	1				2	1 means FIFO not full		Y	"1,2"	60k	
+							BEP FIFO not empty	1STAT7ST	0				2	1 means FIFO not empty		Y	"1,2"	60k	
+5.7	Check SW LEDs	2					BEP initialization	1STAT3ST	0				1	0 means BEP sw is running		Y	"1,2"	60k	
+							Watchdog boot	1STAT2ST	1				2	1 means no watchdog reboot		Y	"1,2"	60k	
+							Science run status	1STAT1ST	1				2	1 means science idle		Y	"1,2"	60k	
+								1STAT0ST	0 or 1				2	this bit toggles to indicate BEP running		Y	"1,2"	60k	
+6	Start DEA Interface\\Housekeeping																		
+6.1	Load Board 11 DEA Hkp\\	1	loadDeaBlock	WD00001024							Check cmdResult==OK\\commandEcho==225		B	Monitor FP temp and DEA voltages		Y	"1,2"	60k	
+6.2	Start DEA Hkp run\\	1	startDea	XDZ0000005							Check cmdResult==OK\\commandEcho==18		B	"If Hkp running, cmdResult==CLOBBERED"		Y	"1,2"	60k	
+7	Start FP temperature\\control																		
+7.1	set FP temp to $-121^\circ$C\\	1	changeConfigSetting	WSFTNEG123							Check cmdResult==OK\\commandEcho==6369		A			Y	"1,2"	60k	
+7.2	set FP temp to $-120^\circ$C\\	2	changeConfigSetting	WSFTNEG121							Check cmdResult==OK\\commandEcho==1220		A			Y	"1,2"	60k	
+8	Power video boards\\from DEA-B													Abort if DEA-B heaters on or 1DEPSB==OFF					
+8.1a	"Set I0,S0 relays to DEA-B"	1	changeConfigSetting	WS\_RELAY\_0							Check cmdResult==OK\\commandEcho==14429	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.1b	Power up I0	1	changeConfigSetting	WSPOW00100							Check cmdResult==OK\\commandEcho==14439	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.1c	Power up S0	1	changeConfigSetting	WSPOW01100							Check cmdResult==OK\\commandEcho==14440	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.2a	"Set I1,S1 relays to DEA-B"	1	changeConfigSetting	WS\_RELAY\_1							Check cmdResult==OK\\commandEcho==14430	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.2b	Power up I1	1	changeConfigSetting	WSPOW01300							Check cmdResult==OK\\commandEcho==14443	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.2c	Power up S1	1	changeConfigSetting	WSPOW03300							Check cmdResult==OK\\commandEcho==14445	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.3a	"Set I2,S3 relays to DEA-B"	1	changeConfigSetting	WS\_RELAY\_2							Check cmdResult==OK\\commandEcho==14433	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.3b	Power up I2	1	changeConfigSetting	WSPOW03700							Check cmdResult==OK\\commandEcho==14446	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.3c	Power up S3	1	changeConfigSetting	WSPOW0B700							Check cmdResult==OK\\commandEcho==14448	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.4a	"Set I3,S2 relays to DEA-B"	1	changeConfigSetting	WS\_RELAY\_3							Check cmdResult==OK\\commandEcho==14434	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.4b	Power up I3	1	changeConfigSetting	WSPOW0BF00							Check cmdResult==OK\\commandEcho==14451	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.4c	Power up S2	1	changeConfigSetting	WSPOW0FF00							Check cmdResult==OK\\commandEcho==14453	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.5a	"Set S4,S5 relays to DEA-B"	1	changeConfigSetting	WS\_RELAY\_4							Check cmdResult==OK\\commandEcho==14436	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.5b	Power up S4	1	changeConfigSetting	WSPOW1FF00							Check cmdResult==OK\\commandEcho==14454	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+8.5c	Power up S5	1	changeConfigSetting	WSPOW3FF00							Check cmdResult==OK\\commandEcho==14457	1DEPSB	A	"Wait 60 secs, then check that 1DEPSB=ON"		Y	"1,2"	60k	
+9	Power down video boards																		
+9.1	Power off video boards	1	changeConfigSetting	WSVIDALLDN							Check cmdResult==OK\\commandEcho==1541		A			Y	"1,2"	60k	
+9.2	Dump System Config.	1	dumpSysConfig	RS\_0000001							Check cmdResult==OK\\commandEcho==66		B			Y	"1,2"	60k	

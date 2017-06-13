@@ -1,0 +1,11 @@
+Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telemetry	Other	Crit	Description	Notes	RT	Tlm	Min	SIM
+\#	4.31\_V2.2	(mins)	Description	Mnemonic	EGSE	Key	Description	Mnemonic	Value		EGSE	Verifier				Con	Fmt	Alt	Pos
+1	Turn off DEA B	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+1.1	DEA Power B Off 	1	DEA PS Off B 	1DEPSBOF 	 	 	 	1DEPSB 	OFF 	 	 	 	 	Ignore if DPA unpowered	 	 	"1,2,4,6"	 	 
+ 	 	 	 	 	 	 	DEA +24 V B 	1DEP2BVO 	$0.0\pm0.4$	V 	 	 	1	 	 	 	 	 	 
+ 	 	 	 	 	 	 	DEA +6 V B 	1DEP0BVO 	$0.0\pm0.4$	V 	 	 	2	 	 	 	 	 	 
+ 	 	 	 	 	 	 	DEA -6 V B 	1DEN0BVO 	$0.0\pm0.4$	V 	 	 	2	 	 	 	 	 	 
+ 	 	 	 	 	 	 	DEA +15 V B 	1DEP1BVO 	$0.0\pm0.4$	V 	 	 	2	 	 	 	 	 	 
+ 	 	 	 	 	 	 	DEA -15 V B 	1DEN1BVO 	$0.0\pm0.4$	V 	 	 	2	 	 	 	 	 	 
+ 	 	 	 	 	 	 	DEA +28 V B 	1DEP3BVO 	$0.0\pm0.4$	V 	 	 	2	 	 	 	 	 	 
+1.2	Disable DEA PS B 	1	DEA PS B Dis 	1DEPSBDS 	 	 	DEA B Dis 	1DEPSBX 	DIS 	 	 	 	 	Ignore if DPA unpowered	 	 	"1,2,4,6"	 	 

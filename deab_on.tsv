@@ -1,0 +1,31 @@
+Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telemetry	Other	Crit	Description	Notes	RT	Tlm	Min	SIM
+\#	4.30\_V2.2	(mins)	Description	Mnemonic	EGSE	Key	Description	Mnemonic	Value		EGSE	Verifier				Con	Fmt	Alt	Pos
+1	Turn on DEA B																		
+1.1	Verify DEA A is off 							1DEPSAX	DIS					Ignore verifier if DPA A and B unpowered			1,2,4,6		
+								1DEPSA	OFF					Ignore verifier if DPA A and B unpowered					
+		 	 	 	 	 	DEA Input V A	1DE28AVO 	25.0--34.0 	V 	 	 	 	 	 	 			
+ 	 	 	 	 	 	 	DEA +28 V A 	1DEP3AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA +24 V A 	1DEP2AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA +15 V A 	1DEP1AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA +6 V A 	1DEP0AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA -6 V A 	1DEN0AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA -15 V A 	1DEN1AVO 	$0.0\pm0.5$ 	V									
+1.2	Enable DEA PS B 	1	DEA PS B En 	1DEPSBEN 	 	 	DEA B ENB/DIS 	1DEPSBX 	ENB 	 	 	 	2	Ignore verifier if DPA A and B unpowered	 	 	1,2,4,6		
+1.3	DEA Power B On 	1	DEA PS On B 	1DEPSBON 	 	 	 	1DEPSB 	ON 	 	 	 	2	Ignore verifier if DPA A and B unpowered	 	 	1,2,4,6		
+ 	 	 	 	 	 	 	DEA Input V B	1DE28BVO 	25.0--34.0	V 	 	 	2	Expect DEA side B power $24\pm4$~W, current					
+ 	 	 	 	 	 	 	DEA +28 V B 	1DEP3BVO 	$>26.0$ 	V 	 	 	2	is noisy so average needed (see Figures).					
+ 	 	 	 	 	 	 	DEA +24 V B 	1DEP2BVO 	24.0--26.0 	V 	 	 	1						
+ 	 	 	 	 	 	 	DEA +15 V B 	1DEP1BVO 	15.0--17.0 	V 	 	 	2						
+ 	 	 	 	 	 	 	DEA +6 V B 	1DEP0BVO 	5.6--6.7 	V 	 	 	2	{\bf FP Temp unregulated}					
+ 	 	 	 	 	 	 	DEA -6 V B 	1DEN0BVO 	$-7$--$-5.7$	V 	 	 	2	{\bf DEA Interface A/D in low-res mode}					
+ 	 	 	 	 	 	 	DEA -15 V B 	1DEN1BVO 	$-17$--$-15$	V 	 	 	2						
+ 	 	 	 	 		 	DEA Input I B	1DEICBCU 	0.7--0.9 	A 	 	 	2						
+1.4	Verify DEA A is off 							1DEPSAX	DSAB					Ignore verifier if DPA A and B unpowered			1,2,4,6		
+								1DEPSA	OFF					Ignore verifier if DPA A and B unpowered					
+		 	 	 	 	 	DEA Input V A	1DE28AVO 	25.0--34.0 	V 	 	 	 	 	 	 			
+ 	 	 	 	 	 	 	DEA +28 V A 	1DEP3AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA +24 V A 	1DEP2AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA +15 V A 	1DEP1AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA +6 V A 	1DEP0AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA -6 V A 	1DEN0AVO 	$0.0\pm0.5$ 	V									
+ 	 	 	 	 	 	 	DEA -15 V A 	1DEN1AVO 	$0.0\pm0.5$ 	V									

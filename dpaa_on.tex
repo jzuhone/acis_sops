@@ -1,0 +1,134 @@
+\documentclass[11pt]{article}
+
+\usepackage{color,lscape}
+
+\topmargin -0.75truein
+\oddsidemargin -0.4truein
+\textheight 9.25truein
+\textwidth 6.7truein
+\hbadness=10001
+\hfuzz=200pt
+
+
+\begin{document}
+%\input dspace12.tex
+%\input pstricks.tex
+%\input psfig
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\bt}{\begin{tabbing}}
+\newcommand{\et}{\end{tabbing}}
+\newcommand{\eg}{{\it e.g.~}}
+\newcommand{\ie}{{\it i.e.~}}
+\newcommand{\ul}{\underline}
+\newcommand{\axaf}{{\em AXAF}}
+\def\la{\hbox{\rlap{$<$}\lower0.5ex\hbox{$\sim$}\ }}
+
+
+\large
+%\vspace*{-0.5in}
+\centerline {\bf 4.3\_V2.1 TURN ON DPA A (realtime version) }
+\vspace{0.25in}
+
+\normalsize
+\noindent{\it Last Revised: March 25, 2016}\\
+\noindent{\bf Filename: dpaa\_on} \\
+
+
+\noindent {\bf BRIEF FUNCTIONAL DESCRIPTION:} \\
+\normalsize
+This is an ``atomic'' procedure which simply powers up the DPA side A.
+It should be safe to execute under any
+condition except a spacecraft power or thermal emergency.
+The telemetry verifiers for the ``Enable'' and ``On''  can be
+confusing depending on if either side of the DPA was on before the
+procedure started.  If both sides of the DPA were off, the Enable and
+On will read Enabled and On even though both sides of the DPA are off.
+Once the the On command has been executed the Enable and On will still
+read Enabled and On.  The only sure way to tell is to check the input
+current and the DPA 5V.  If side B of the DPA happened to be on, then
+the Enable and On would correctly read disabled and off before this
+procedure is run.  This procedure does not assume anything about the
+state of DPA B or which BEP is currently selected.  Therefore, it does
+not verify that BEP A boots.
+
+\vspace{0.25in}
+\noindent The sequence of actions will be:
+\be
+\item enable and turn on DPA power supply side A
+\ee
+
+
+\vspace{0.15in}
+\normalsize
+\noindent {\bf ASSUMED INSTRUMENT STATE:} \\
+\normalsize
+Assumes that the PSMC has power from the spacecraft. \\
+
+
+%\vspace{0.25in}
+\normalsize
+\noindent {\bf SPECIAL INITIAL CONDITIONS:} \\
+\normalsize
+%The environment must be clean enough to allow opening of the valve. \\
+%Assumes that \axaf\/ ISIM RCTU is powered on and in telemetry format 6. \\
+
+%\newpage
+
+%\vspace{0.25in}
+\normalsize
+\noindent {\bf OPERATIONAL CONSTRAINTS/CAUTIONS:} \\
+\normalsize
+
+
+
+\vspace{0.15in}
+\normalsize
+\noindent {\bf REFERENCES:} \\
+\normalsize
+
+\normalsize
+\noindent {\bf CHANGE HISTORY:} \\
+\normalsize
+
+{\bf V1.2}
+\begin{itemize}
+\item changed filenames from ``turnon\_dpaa'' to
+``dpaa\_on''
+\item added text to explain the confusion with the logical verifiers
+\end{itemize}
+
+{\bf V1.3}
+\begin{itemize}
+\item changed primary verifier to be the DPA +5~V supply
+\item deleted verifiers for the BEP A boot
+\item changed TLM FMT to 1,2,4or6
+\end{itemize}
+
+{\bf V2.0}
+\begin{itemize}
+\item ACIS Team signed-off version, identical to previous version 1.3
+\end{itemize}
+
+{\bf V2.1}
+\begin{itemize}
+\item Update expected 1DP28AVO range
+\item Changed formatting of ``Tlm Fmt'' in table
+\item Changed time column from units of seconds to minutes in table
+\item Changed text in table column ``Description''
+\end{itemize}
+
+\newpage\
+\vspace{0.4\textheight}
+\bc This page is intentionally blank \ec
+
+\newcommand{\tablecaptiontext}{TURN ON DPA A (realtime version)}
+\input{dpaa_on.tab}
+
+\end{document}

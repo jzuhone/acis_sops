@@ -1,0 +1,8 @@
+Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telemetry	Other	Crit	Description	Notes	RT	Tlm	Min	SIM
+\#	4.6\_V2.1	(mins)	Description	Mnemonic	EGSE	Key	Description	Mnemonic	Value		EGSE	Verifier				Con	Fmt	Alt	Pos
+1	Turn off DPA A
+1.1	Turn off DPA PS A 	2	DPA PS A Off 	1DPPSAOF 	 	 	DPA A ON/OFF 	1DPPSA 	OFF 	 	 	 	2	Ignore if DPA unpowered	 	 	"1,2,4,6"
+ 	 	 	 	 	 	 	DPA Input V 	1DP28AVO 	25.0--34.0	V 	 	 	2	"Expect 0~W for side A, power consumption "
+ 	 	 	 	 	 	 	DPA Input I 	1DPICACU 	0	A 	 	 	2	should be more stable than I or V.
+ 	 	 	 	 	 	 	DPA +5V 	1DPP0AVO 	0	V 	 	 	1	
+1.2	Disable DPA PS A 	1	DPA PS A Dis 	1DPPSADS 	 	 	DPA A ENB/DIS 	1DPPSAX 	DIS 	 	 	 	 	Ignore if DPA unpowered	 	 	"1,2,4,6"

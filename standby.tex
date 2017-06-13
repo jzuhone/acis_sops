@@ -1,0 +1,138 @@
+\documentclass[11pt]{article}
+
+\usepackage{lscape,color}
+\usepackage[normalem]{ulem}
+
+\topmargin -0.75truein
+\oddsidemargin -0.4truein
+\textheight 9.25truein
+\textwidth 6.7truein
+\hbadness=10001
+\hfuzz=200pt
+
+
+\begin{document}
+%\input dspace12.tex
+%\input pstricks.tex
+%\input psfig
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\bt}{\begin{tabbing}}
+\newcommand{\et}{\end{tabbing}}
+\newcommand{\eg}{{\it e.g.~}}
+\newcommand{\ie}{{\it i.e.~}}
+\newcommand{\ul}{\underline}
+\newcommand{\axaf}{{\em AXAF}}
+\newcommand*\red{\color{red}}
+\newcommand*\blue{\color{blue}}
+\def\la{\hbox{\rlap{$<$}\lower0.5ex\hbox{$\sim$}\ }}
+
+
+\large
+%\vspace*{-0.5in}
+\centerline {\bf 4.11\_V2.1 PUT ACIS INTO THERMAL STANDBY MODE } 
+\vspace{0.25in}
+
+\normalsize
+\noindent{\it Last Revised: April 7, 2017}\\
+\noindent{\bf Filename: standby} \\
+
+
+\noindent {\bf BRIEF FUNCTIONAL DESCRIPTION:} \\
+
+This procedure is intended to put ACIS into a relatively low 
+power state while preserving the flight SW patches in memory and 
+active control of the focal plane temperature by maintaining power 
+to at least one side of the DPA and one side of the DEA. The FEPs 
+and the video boards will be turned off to reduce power consumption. 
+ACIS should consume about 50~W in this configuration. The power 
+breakdown is 12~W for DPA-A, 8~W for DPA-B, 24+/-4~W for DEA-A, 
+4~W for the PSMC overhead, and 3~W for the FP heater. It is expected 
+that the previous science run will have been halted by a ``Stop Science'' 
+command included in the daily command load and scheduled at the appropriate 
+time by the OFLS SW. Nevertheless, since it is no harm to the instrument 
+to send this command twice, this command is sent again in this procedure. 
+The procedure then turns off the video boards and FEPs but leaves everything 
+else up and running. The advantage of this configuration is that the 
+flight SW patches are preserved in memory and active control of the FP 
+temperature is maintained such that it would be relatively quick to resume 
+science operations.
+
+\normalsize
+\vspace{0.25in}
+\noindent The sequence of actions will be: 
+\be
+\item issue a Stop Science Run command
+\vspace{-0.10in}
+\item turn off the video board power and FEPs, dump the system configuration
+\vspace{-0.10in}
+\item verify power consumption and Camera Body and Focal Plane temperatures
+\ee
+
+
+\vspace{0.15in}
+\normalsize
+\noindent {\bf ASSUMED INSTRUMENT STATE:} \\
+\normalsize
+Assumes that at least one side of the DPA and DEA A are on.\\
+The instrument should not be in bakeout mode.\\
+
+%\vspace{0.25in}
+\normalsize
+\noindent {\bf SPECIAL INITIAL CONDITIONS:} \\
+\normalsize
+None.
+\\
+%\newpage 
+
+%\vspace{0.25in}
+\normalsize
+\noindent {\bf OPERATIONAL CONSTRAINTS/CAUTIONS:} \\
+\normalsize
+This procedure maintains the active thermal control of the instrument
+so that the Camera Body and Focal Plane maintain their operational 
+temperatures of $\sim$-60~C and $\sim$-120~C.\\
+
+\vspace{0.15in}
+\normalsize
+\noindent {\bf CHANGE HISTORY:} \\
+\normalsize
+
+{\bf V1.2}
+\begin{itemize}
+\item changed command to power-down the FEPs and video boards to be
+``WSPOW00000'' in step 2.1
+\item modified Assumed Instrument State and Operational Constraints
+and Cautions 
+\end{itemize}
+
+{\bf V2.0}
+\begin{itemize}
+\item ACIS Team signed-off version
+\item added step 3 to verify DPA A \& B, DEA A and DA Htr B power
+consumption and to verify Camera Body and FP temperature
+\end{itemize}
+
+{\bf V2.1}
+\begin{itemize}
+\item Removed verification steps for detector housing heater telemetry
+\item Updated expected values for telemetry verifiers
+\item Updated text to reflect current operational paradigm circa 2017
+\end{itemize}
+
+\newpage\
+\vspace{0.4\textheight}
+\bc This page is intentionally blank \ec
+
+\noindent
+
+\newcommand{\tablecaptiontext}{Put ACIS into Thermal Standby Mode~}
+\input{standby.tab}
+
+\end{document}

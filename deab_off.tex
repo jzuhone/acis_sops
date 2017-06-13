@@ -1,0 +1,127 @@
+\documentclass[11pt]{article}
+
+\usepackage{lscape,color}
+
+\topmargin -0.75truein
+\oddsidemargin -0.4truein
+\textheight 9.25truein
+\textwidth 6.7truein
+\hbadness=10001
+\hfuzz=200pt
+
+
+\begin{document}
+%\input dspace12.tex
+%\input pstricks.tex
+%\input psfig
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\bt}{\begin{tabbing}}
+\newcommand{\et}{\end{tabbing}}
+\newcommand{\eg}{{\it e.g.~}}
+\newcommand{\ie}{{\it i.e.~}}
+\newcommand{\ul}{\underline}
+\newcommand{\axaf}{{\em AXAF}}
+\def\la{\hbox{\rlap{$<$}\lower0.5ex\hbox{$\sim$}\ }}
+
+
+\large
+%\vspace*{-0.5in}
+\centerline {\bf 4.31\_V2.2 TURN OFF DEA B  }
+\vspace{0.25in}
+
+\normalsize
+\noindent{\it Last Revised: June 1, 2017}\\
+\noindent{\bf Filename: deab\_off} \\
+
+
+\noindent {\bf BRIEF FUNCTIONAL DESCRIPTION:} \\
+\normalsize
+This is an ``atomic'' procedure which simply turns off the DEA side B.
+The instrument must not be in bakeout mode when this procedure is
+executed. The video boards should be powered down before executing this
+procedure.  The ``Enable'' and ``On'' verifiers will only be valid if
+one side of the DPA is on.
+
+
+
+\vspace{0.25in}
+\noindent The sequence of actions will be:
+\be
+\item  Turn off and disable DEA power supply side B
+\ee
+
+
+\vspace{0.15in}
+\normalsize
+\noindent {\bf ASSUMED INSTRUMENT STATE:} \\
+\normalsize
+Assumes that the PSMC has power from the spacecraft. \\
+The instrument MUST NOT be in bakeout mode.\\
+The video boards should be powered down before executing this procedure.\\
+
+%\vspace{0.25in}
+\normalsize
+\noindent {\bf SPECIAL INITIAL CONDITIONS:} \\
+\normalsize
+%The environment must be clean enough to allow opening of the valve. \\
+%Assumes that \axaf\/ ISIM RCTU is powered on and in telemetry format 6. \\
+
+%\newpage
+
+%\vspace{0.25in}
+\normalsize
+\noindent {\bf OPERATIONAL CONSTRAINTS/CAUTIONS:} \\
+\normalsize
+
+Note that when either side of the DEA is unpowered, the corresponding current monitor,
+1DEICBCU for side B, or 1DEICACU for side A, will be unreliable.
+They will read $16-18$~A when unpowered, as of Telemetry Database TDB v14.
+This is expected and not a problem.
+
+
+
+\vspace{0.15in}
+\normalsize
+\noindent {\bf REFERENCES:} \\
+\normalsize
+
+\normalsize
+\noindent {\bf CHANGE HISTORY:} \\
+\normalsize
+
+{\bf V1.0}
+\begin{itemize}
+\item Initial version based on deaa\_off
+\end{itemize}
+
+{\bf V1.1}
+\begin{itemize}
+\item Minor edits; for ACIS team review
+\end{itemize}
+
+{\bf V2.0}
+\begin{itemize}
+\item For FOT review
+\end{itemize}
+
+{\bf V2.1}
+\begin{itemize}
+\item Moved telemetry checks to step 1.1
+\end{itemize}
+
+{\bf V2.2}
+\begin{itemize}
+\item Removed check of 1DEICBCU
+\end{itemize}
+
+\newcommand{\tablecaptiontext}{TURN OFF DEA B (realtime version)}
+\input{deab_off.tab}
+
+\end{document}
