@@ -36,24 +36,26 @@
 
 \large
 %\vspace*{-0.5in}
-\centerline {\bf 4.5\_V2.5 TURN ON DEA A (realtime version) }
+\centerline {\bf 4.5\_V2.6 TURN ON DEA A}
 \vspace{0.25in}
 
 \normalsize
-\noindent{\it Last Revised: May 26, 2017}\\
+\noindent{\it Last Revised: July 11, 2017}\\
 \noindent{\bf Filename: deaa\_on} \\
 
 
 \noindent {\bf BRIEF FUNCTIONAL DESCRIPTION:} \\
 \normalsize
 This is an ``atomic'' procedure which simply powers up the DEA side A.
-It should be safe to execute under any
-condition except a spacecraft power or thermal emergency.
+It should be safe to execute under any condition except a spacecraft 
+power or thermal emergency.
 
 \vspace{0.25in}
 \noindent The sequence of actions for this procedure will be:
 \be
 \item Verify that DEA B is powered off and disabled (see Constraints/Cautions, below)
+\vspace{-0.10in}
+\item Verify that DEA A is receiving power from the spacecraft
 \vspace{-0.10in}
 \item Enable and turn on DEA power supply side A
 \vspace{-0.10in}
@@ -94,6 +96,9 @@ the DEA flag values will be unreliable and the DEA voltage
 channels (1DEP[0123][AB]VO) should instead be used to determine which
 sides of the DEA are powered).
 
+Before sending the command to power on DEA A, the DEA Input Voltage A 1DE28AVO should
+be checked to make sure that DEA A is receiving power from the spacecraft.
+
 The DEA input current monitors (1DEIC[AB]CU) are noisy.
 To give an indication of what variation may be expected, figures 1 and 2
 show the behavior of the A-side DEA current with a ten-sample running
@@ -102,6 +107,12 @@ when either side of the DEA is unpowered, the corresponding current monitor,
 1DEICACU for side A, or 1DEICBCU for side B, will be unreliable. They will read
 16--18~A when unpowered, as of Telemetry Database (TDB) v14. This is expected and
 not a problem.
+
+If the DEA powers off unexpectedly during a bakeout, the FP bakeout 
+heater will lose power and this heater will NOT be re-enabled when the DEA side A 
+power is restored. Additional SW commands are necessary to activate the FP bakeout 
+heater. The DH bakeout heater is unaffected by a power loss to the DEA and will 
+therefore still be executing a bakeout if power is lost to the DEA.
 
 After successful execution, {\em the FP temperature control will be unregulated,
 and DEA interface A/D will be in low-resolution mode.}\\
@@ -170,6 +181,13 @@ and DEA interface A/D will be in low-resolution mode.}\\
 \item Removed input current check for DEA B; added warning to text.
 \end{itemize}
 
+{\bf V2.6}
+\begin{itemize}
+\item Added check of input voltage for DEA A before sending the turn-on command
+\item Adjusted values of ``Crit'' column in table. 
+\item Note that a bakeout will be interrupted if the DEA powers off, provide details
+\end{itemize}
+
 \begin{landscape}
 \begin{figure}
 \begin{center}
@@ -192,11 +210,7 @@ the orange line in the plot.}
 \end{figure}
 \end{landscape}
 
-\newpage\
-\vspace{0.4\textheight}
-\bc This page is intentionally blank \ec
-
-\newcommand{\tablecaptiontext}{TURN ON DEA A (realtime version)}
+\newcommand{\tablecaptiontext}{TURN ON DEA A}
 \input{deaa_on.tab}
 
 \end{document}

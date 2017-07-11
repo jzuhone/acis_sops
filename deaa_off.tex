@@ -33,40 +33,39 @@
 
 \large
 %\vspace*{-0.5in}
-\centerline {\bf 4.8\_V2.1 TURN OFF DEA A (realtime version) }
+\centerline {\bf 4.8\_V2.3 TURN OFF DEA A}
 \vspace{0.25in}
 
 \normalsize
-\noindent{\it Last Revised: June 5, 2017}\\
+\noindent{\it Last Revised: July 11, 2017}\\
 \noindent{\bf Filename: deaa\_off} \\
-
 
 \noindent {\bf BRIEF FUNCTIONAL DESCRIPTION:} \\
 \normalsize
 This is an ``atomic'' procedure which simply turns off the DEA side A.
-The instrument must not be in bakeout mode when this procedure is
-executed. The video boards should be powered off during this
-procedure.  The ``Enable'' and ``On'' verifiers will only be valid if
-one side of the DPA is on.
-
-
+It should be safe to execute under any condition except a spacecraft 
+power or thermal emergency.
 
 \vspace{0.25in}
-\noindent The sequence of actions will be:
+\noindent The sequence of actions for this procedure will be:
 \be
-\item  turn off and disable DEA power supply side A
+\item Power down all the video boards
+\vspace{-0.10in}
+\item Turn off and disable DEA power supply side A
 \ee
-
 
 \vspace{0.15in}
 \normalsize
-\noindent {\bf ASSUMED INSTRUMENT STATE:} \\
+\noindent {\bf ASSUMED INSTRUMENT STATE:}
 \normalsize
-Assumes that the PSMC has power from the spacecraft. \\
-The instrument MUST NOT be in bakeout mode.\\
-The video boards should be powered down before executing this procedure.\\
-
-%\vspace{0.25in}
+\be
+\item Assumes that the PSMC has power from the spacecraft.
+\vspace{-0.10in}
+\item The instrument should not be executing a science run.
+\vspace{-0.10in}
+\item The instrument should not be in bakeout mode.
+\ee
+\vspace{0.1in}
 \normalsize
 \noindent {\bf SPECIAL INITIAL CONDITIONS:} \\
 \normalsize
@@ -80,7 +79,26 @@ The video boards should be powered down before executing this procedure.\\
 \noindent {\bf OPERATIONAL CONSTRAINTS/CAUTIONS:} \\
 \normalsize
 
-Typically 1DEICACU (and likewise the B-side 1DEICBCU) reads 16-−18~A when unpowered, as of Telemetry Database (TDB) v14. This is expected and not a problem.
+The DEA power status is normally indicated by the values of the 1DEPSA and
+1DEPSB flags, which should not both be 1 simultaneously.
+However, if neither side of the DPA is receiving power
+({\it i.e.}, if 1DPP0AVO and 1DPP0BVO are simultaneously reading $0.0 \pm 0.5$ V),
+the DEA flag values will be unreliable and the DEA voltage
+channels (1DEP[0123][AB]VO) should instead be used to determine which
+sides of the DEA are powered).
+
+Typically 1DEICACU (and likewise the B-side 1DEICBCU) reads 16-−18~A when 
+unpowered, as of Telemetry Database (TDB) v14. This is expected and not a problem.
+
+The instrument should not be executing a science run using DEA side A. 
+If power is removed from DEA side A while a science run is in progress, the science 
+run will terminate producing errors. The data will still be useful, but the processing 
+will be more complicated.
+
+The instrument should not be in bakeout mode. If the DEA side A power is 
+removed during a bakeout, the FP bakeout heater will lose power and the bakeout of 
+the FP will terminate. The DH bakeout heater is unaffected by a power loss to the 
+DEA and will therefore still be executing a bakeout if power is lost to the DEA.
 
 \vspace{0.15in}
 \normalsize
@@ -126,7 +144,19 @@ Typically 1DEICACU (and likewise the B-side 1DEICBCU) reads 16-−18~A when unpo
 \item Added error bars to voltages
 \end{itemize}
 
-\newcommand{\tablecaptiontext}{TURN OFF DEA A (realtime version)}
+{\bf V2.3}
+\begin{itemize}
+\item Moved the text regarding power status issues and expected current behavior 
+from the Functional Description to the Operational Constraints/Cautions section 
+and expanded it.
+\item Added a step to turn off the video boards to the beginning of the procedure
+\end{itemize}
+
+\newpage\
+\vspace{0.4\textheight}
+\bc This page is intentionally blank \ec
+
+\newcommand{\tablecaptiontext}{TURN OFF DEA A}
 \input{deaa_off.tab}
 
 \end{document}
