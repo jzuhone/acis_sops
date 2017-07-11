@@ -4,3 +4,5 @@
 *.pdf
 *.tab
 *.ps
+*.fdb_latexmk
+*.fls
