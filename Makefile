@@ -25,7 +25,7 @@ dpab_off:
 	ps2pdf dpab_off.ps
 
 deaa_on:
-	make_sop_table -l 23 deaa_on.tsv
+	make_sop_table -l 24 deaa_on.tsv
 	latex deaa_on.tex; latex deaa_on.tex
 	dvips deaa_on.dvi -o deaa_on.ps
 	ps2pdf deaa_on.ps
