@@ -33,11 +33,11 @@
 
 \large
 %\vspace*{-0.5in}
-\centerline {\bf 4.8\_V2.3 TURN OFF DEA A}
+\centerline {\bf 4.8\_V2.4 TURN OFF DEA A}
 \vspace{0.25in}
 
 \normalsize
-\noindent{\it Last Revised: July 11, 2017}\\
+\noindent{\it Last Revised: July 12, 2017}\\
 \noindent{\bf Filename: deaa\_off} \\
 
 \noindent {\bf BRIEF FUNCTIONAL DESCRIPTION:} \\
@@ -64,6 +64,10 @@ power or thermal emergency.
 \item The instrument should not be executing a science run.
 \vspace{-0.10in}
 \item The instrument should not be in bakeout mode.
+\vspace{-0.10in}
+\item Assumes that one side of the DPA is powered and that 
+a BEP is active and ready to execute commands. If not, skip 
+Step 1, which issues the WSVIDALLDN command to the BEP.
 \ee
 \vspace{0.1in}
 \normalsize
@@ -86,6 +90,9 @@ However, if neither side of the DPA is receiving power
 the DEA flag values will be unreliable and the DEA voltage
 channels (1DEP[0123][AB]VO) should instead be used to determine which
 sides of the DEA are powered).
+
+If neither side of the DPA is receiving power, then the command to power down the 
+video boards should be skipped.
 
 Typically 1DEICACU (and likewise the B-side 1DEICBCU) reads 16-−18~A when 
 unpowered, as of Telemetry Database (TDB) v14. This is expected and not a problem.
@@ -150,6 +157,14 @@ DEA and will therefore still be executing a bakeout if power is lost to the DEA.
 from the Functional Description to the Operational Constraints/Cautions section 
 and expanded it.
 \item Added a step to turn off the video boards to the beginning of the procedure
+\end{itemize}
+
+{\bf V2.4}
+\begin{itemize}
+\item Re-arranged the power verifers so that they occur in between the command
+to power the DEA off and the command to disable it. 
+\item Added language stating that if the DPA is unpowered the WSVIDALLDN command
+should not be issued.
 \end{itemize}
 
 \newpage\
