@@ -34,11 +34,11 @@
 
 \large
 %\vspace*{-0.5in}
-\centerline {\bf 4.29\_V2.1 TURN ON DEA A AND TEST VIDEO BOARDS }
+\centerline {\bf 4.29\_V2.2 TURN ON DEA A AND TEST VIDEO BOARDS }
 \vspace{0.25in}
 
 \normalsize
-\noindent{\it Last Revised: June 5, 2017}\\
+\noindent{\it Last Revised: July 21, 2017}\\
 \noindent{\bf Filename: deaa\_on\_test\_vid} \\
 
 
@@ -52,11 +52,19 @@ This is a procedure which powers up the DEA side A, powers up all 10 video board
 \be
 \item Verify that DEA B is powered off and disabled (see Constraints/Cautions, below)
 \vspace{-0.10in}
+\item {\color{red} Verify that DEA A is receiving power from the spacecraft}
+\vspace{-0.10in}
 \item Enable and turn on DEA power supply side A
 \vspace{-0.10in}
 \item Verify that DEA B is still off
 \vspace{-0.10in}
 \item Verify that the DH heater is not powered from side A
+\vspace{-0.10in}
+\item {\color{red} Warm boot the BEP}
+\vspace{-0.10in}
+\item {\color{red} Execute a DEA housekeeping run}
+\vspace{-0.10in}
+\item {\color{red} Set the focal plane temperature to -119.7~$^\circ$C}
 \vspace{-0.10in}
 \item Power up all 10 video boards
 \vspace{-0.10in}
@@ -77,16 +85,15 @@ This is a procedure which powers up the DEA side A, powers up all 10 video board
 \item Assumes that both sides of the DPA are on.
 \vspace{-0.10in}
 \item Assumes that the flight SW is running on the active BEP.
+\vspace{-0.10in}
+\item {\color{red} Assumes that the DEA was previously powered from side A.}
 \ee
 \vspace{0.1in}
 %\vspace{0.25in}
 \normalsize
 \noindent {\bf SPECIAL INITIAL CONDITIONS:} \\
 \normalsize
-%The environment must be clean enough to allow opening of the valve. \\
-%Assumes that \axaf\/ ISIM RCTU is powered on and in telemetry format 6. \\
 
-%\vspace{0.25in}
 \normalsize
 \noindent {\bf OPERATIONAL CONSTRAINTS/CAUTIONS:} \\
 \normalsize
@@ -108,8 +115,14 @@ when either side of the DEA is unpowered, the corresponding current monitor,
 16--18~A when unpowered, as of Telemetry Database (TDB) v14. This is expected and
 not a problem.
 
+{\color{red} If the DEA powers off unexpectedly during a bakeout, the FP bakeout 
+heater will lose power and this heater will NOT be re-enabled when the DEA side A 
+power is restored. Additional SW commands are necessary to activate the FP bakeout 
+heater. The DH bakeout heater is unaffected by a power loss to the DEA and will 
+therefore still be executing a bakeout if power is lost to the DEA.}
+
 After successful execution, {\em the FP temperature control will be unregulated,
-and DEA interface A/D will be in low-resolution mode.}\\
+and DEA interface A/D will be in {\color{red} high-resolution mode.}}\\
 
 \vspace{0.15in}
 \normalsize

@@ -37,7 +37,7 @@ deaa_off:
 	ps2pdf deaa_off.ps
 
 deaa_on_test_vid:
-	make_sop_table -p 1.7in -l 32 deaa_on_test_vid.tsv
+	make_sop_table -p 1.7in -t 2.6in -d 2.17in -l 25 deaa_on_test_vid.tsv
 	latex deaa_on_test_vid.tex; latex deaa_on_test_vid.tex 
 	dvips -o deaa_on_test_vid.ps deaa_on_test_vid.dvi
 	ps2pdf deaa_on_test_vid.ps
@@ -58,4 +58,4 @@ clean_all: clean_aux
 	rm -f *.ps *.pdf
 
 clean_aux:
-	rm -f *.aux *.log *~ *.dvi *.tab
+	rm -f *.aux *.log *~ *.dvi *.tab *.fls *-eps-converted-to.pdf *.fdb_latexmk
