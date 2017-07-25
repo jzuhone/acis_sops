@@ -1,5 +1,5 @@
 Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telemetry	Other	Crit	Description	Notes	RT	Tlm	Min	SIM
-\#	4.5\_V2.6	(mins)	Description	Mnemonic	EGSE	Key	Description	Mnemonic	Value		EGSE	Verifier				Con	Fmt	Alt	Pos
+\#	4.5\_V2.7	(mins)	Description	Mnemonic	EGSE	Key	Description	Mnemonic	Value		EGSE	Verifier				Con	Fmt	Alt	Pos
 1	Turn on DEA A																		
 1.1	Verify DEA B is off						DEA B ENB/DIS	1DEPSBX	DIS				1	Ignore verifier if DPA A and B unpowered			1,2,4,6		
 							DEA B ON/OFF	1DEPSB	OFF				1	Ignore verifier if DPA A and B unpowered					

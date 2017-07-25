@@ -33,14 +33,13 @@
 
 \def\la{\hbox{\rlap{$<$}\lower0.5ex\hbox{$\sim$}\ }}
 
-
 \large
 %\vspace*{-0.5in}
-\centerline {\bf 4.5\_V2.6 TURN ON DEA A}
+\centerline {\bf 4.5\_V2.7 TURN ON DEA A}
 \vspace{0.25in}
 
 \normalsize
-\noindent{\it Last Revised: July 11, 2017}\\
+\noindent{\it Last Revised: July 24, 2017}\\
 \noindent{\bf Filename: deaa\_on} \\
 
 
@@ -70,6 +69,8 @@ power or thermal emergency.
 \item Assumes that the PSMC has power from the spacecraft.
 \vspace{-0.10in}
 \item Assumes that DEA B is off.
+\vspace{-0.10in}
+\item Assumes that the DEA was previously powered from side A. If it was instead powered from side B, the board 11 relays must be reset in addition to powering on DEA A.
 \ee
 \vspace{0.1in}
 \normalsize
@@ -186,6 +187,11 @@ and DEA interface A/D will be in low-resolution mode.}\\
 \item Added check of input voltage for DEA A before sending the turn-on command
 \item Adjusted values of ``Crit'' column in table. 
 \item Note that a bakeout will be interrupted if the DEA powers off, provide details
+\end{itemize}
+
+{\bf V2.7}
+\begin{itemize}
+\item Added a note that this procedure assumes that the DEA was powered from side A and what to do if it wasn't
 \end{itemize}
 
 \begin{landscape}
