@@ -33,57 +33,80 @@
 
 \large
 %\vspace*{-0.5in}
-\centerline {\bf 4.31\_V2.2 TURN OFF DEA B  }
+\centerline {\bf 4.31\_V2.6 TURN OFF DEA B  }
 \vspace{0.25in}
 
 \normalsize
-\noindent{\it Last Revised: June 1, 2017}\\
+\noindent{\it Last Revised: October 17, 2017}\\
 \noindent{\bf Filename: deab\_off} \\
 
 
 \noindent {\bf BRIEF FUNCTIONAL DESCRIPTION:} \\
 \normalsize
 This is an ``atomic'' procedure which simply turns off the DEA side B.
-The instrument must not be in bakeout mode when this procedure is
-executed. The video boards should be powered down before executing this
-procedure.  The ``Enable'' and ``On'' verifiers will only be valid if
-one side of the DPA is on.
-
+It should be safe to execute under any condition except a spacecraft
+power or thermal emergency.
 
 
 \vspace{0.25in}
 \noindent The sequence of actions will be:
 \be
+\item Power down all the video boards
+\vspace{-0.10in}
 \item  Turn off and disable DEA power supply side B
 \ee
 
 
 \vspace{0.15in}
 \normalsize
-\noindent {\bf ASSUMED INSTRUMENT STATE:} \\
+\noindent {\bf ASSUMED INSTRUMENT STATE:} 
 \normalsize
-Assumes that the PSMC has power from the spacecraft. \\
-The instrument MUST NOT be in bakeout mode.\\
-The video boards should be powered down before executing this procedure.\\
+\be
+\item Assumes that the PSMC has power from the spacecraft.
+\vspace{-0.10in}
+\item The instrument should not be executing a science run.
+\vspace{-0.10in}
+\item The instrument should not be in bakeout mode. (See details below.)
+\vspace{-0.10in}
+\item Assumes that at least one side of the DPA is powered and that a BEP is active
+and ready to execute commands. If not, skip Step 1, which issues the WSVIDALLDN
+command to the BEP.
+\ee
 
 %\vspace{0.25in}
 \normalsize
 \noindent {\bf SPECIAL INITIAL CONDITIONS:} \\
 \normalsize
-%The environment must be clean enough to allow opening of the valve. \\
-%Assumes that \axaf\/ ISIM RCTU is powered on and in telemetry format 6. \\
-
-%\newpage
 
 %\vspace{0.25in}
 \normalsize
 \noindent {\bf OPERATIONAL CONSTRAINTS/CAUTIONS:} \\
 \normalsize
 
-Note that when either side of the DEA is unpowered, the corresponding current monitor,
-1DEICBCU for side B, or 1DEICACU for side A, will be unreliable.
-They will read $16-18$~A when unpowered, as of Telemetry Database TDB v14.
-This is expected and not a problem.
+The DEA power status is normally indicated by the values of the 1DEPSA and
+1DEPSB flags, which should not both be 1 simultaneously.
+However, if neither side of the DPA is receiving power
+({\it i.e.}, if 1DPP0AVO and 1DPP0BVO are simultaneously reading $0.0 \pm 0.5$ V),
+the DEA flag values will be unreliable and the DEA voltage
+channels (1DEP[0123][AB]VO) should instead be used to determine which
+sides of the DEA are powered).
+
+If neither side of the DPA is receiving power, then the command to power down the
+video boards should be skipped.
+
+Typically 1DEICBCU (and likewise the A-side 1DEICACU) reads 16-−18~A when
+unpowered. This is a feature of all TDB versions up through v14 and is
+not an anomaly.
+
+The instrument should not be executing a science run using DEA side B.
+If power is removed from DEA side B while a science run is in progress, the science
+run will terminate abnormally.
+The data will still be useful, but the processing will be more complicated.
+
+The instrument should not be in bakeout mode. If the DEA side B power is
+removed during a bakeout, the FP bakeout heater will lose power and the bakeout of
+the FP will terminate. The DH bakeout heater is unaffected by a power loss to the
+DEA and will therefore still be executing a bakeout if power is lost to the DEA.
 
 
 
@@ -121,7 +144,35 @@ This is expected and not a problem.
 \item Removed check of 1DEICBCU
 \end{itemize}
 
-\newcommand{\tablecaptiontext}{TURN OFF DEA B (realtime version)}
+{\bf V2.3}
+\begin{itemize}
+\item Altered wording to conform to A side procedure
+\item Replaced Constraints/Cautions section from A side procedure
+\item Added step to power down video boards (in both table and brief functional description)
+\item Reordered telemetry checks to match web page; added input voltage check
+\end{itemize}
+
+{\bf V2.4}
+\begin{itemize}
+\item Added language stating that if the DPA is unpowered, the WSVIDALLDN command
+should not be issued.
+\end{itemize}
+
+{\bf V2.5}
+\begin{itemize}
+\item Clarified language per PGF comments
+\end{itemize}
+
+{\bf V2.6}
+\begin{itemize}
+\item Fixed errors on voltages
+\end{itemize}
+
+\newpage\
+\vspace{0.4\textheight}
+\bc This page is intentionally blank \ec
+
+\newcommand{\tablecaptiontext}{TURN OFF DEA B}
 \input{deab_off.tab}
 
 \end{document}

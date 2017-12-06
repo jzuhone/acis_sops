@@ -47,8 +47,8 @@ Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telem
    	                         	    	            	            	            	            	            	            	            	      	warmbootFlag = 1, patchValidFlag =1         	            	A   	loaded patches (if any)	   	      	 	 	 
    	                         	    	            	            	            	            	            	            	            	      	Check swHousekeeping messages:	            	   	   	   	      	 	 	 
    	                         	    	            	            	            	            	            	            	            	      	startingBepTickCounter $< 10$;            	            	B  	   	   	      	 	 	 
-   	                         	    	            	            	            	            	            	            	            	      	endingBepTickCounter=  	            	B  	   	   	      	 	 	 
-   	                         	    	            	            	            	            	            	            	            	      	$=$startingbeptickcounter+640	            	  	   	   	      	 	 	 
+   	                         	    	            	            	            	            	            	            	            	      	endingBepTickCounter=  	            	B  	{\bf DEA Interface A/D}	   	      	 	 	 
+   	                         	    	            	            	            	            	            	            	            	      	$=$startingbeptickcounter+640	            	  	{\bf in high-res mode}	   	      	 	 	 
    	                         	    	            	            	            	            	            	            	            	      	version =?? 	            	A 		   	      	 	 	 
 3.6	Check HW LEDs    	1	            	            	            	      	BEP Select 	1STAT4ST    	0or1          	     	            	            	2	0/1 indicates BEP A/B selected 	            	  	1,2,4,6   	   	      
   	   	    	            	            	            	      	BEP FIFO Not Full 	1STAT6ST    	1	     	            	            	2	1 means FIFO not full 	            	   	   	   	      
@@ -58,18 +58,17 @@ Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telem
    	   	    	            	            	            	      	Science run status	1STAT1ST    	1	     	            	            	2	1 means science idle 	            	   	   	   	      
    	   	    	            	            	            	      	  	1STAT0ST    	0or1          	     	            	            	2	bit toggles $\Rightarrow$ BEP is running	            	   	   	   	      
 4	Execute DEA        	    	            	            	            	            	            	            	            	      	            	            	            	                         	            	   	   	   	      
-	Housekeeping run   																		
+	{\bf Housekeeping run}																		
 4.1	Load Board 11 DEA HK     	1	loadDeaBlock	WD00001024							                                        commandEcho 225       	            	       B 	Load Fullhouse DEA hkp	   	   	1,2,4,6	   	      
    	                         	    	            	            	            	            	            	            	            	      	Check cmdResult == OK	            	            	parameter block into slot 4	            	   	   	   	      
-4.2	Start DEA Hkp run     	1	startDEA	XDZ0000005							commandEcho 18        	            	       B 	get FP temp	   	   	1,2,4,6   	   	      
-   	                         	    	            	            	            	            	            	            	            	      	Check cmdResult == OK       	            		should be stable and $\pm2$~C	   	   	   	      	
-   	                         	    	            	            	            	            	            	            	            	      	confirm DEAhk values 	            	            	of desired value	            	   	   	   	      
-5	Drop FP to -121 C         	    	            	            	            	            	            	            	            	      	            	            	            	                         	            	   	   	   	      
-5.1	set FP temp to -121~C    	2	ChangeConfigSetting 	WSFTNEG121     	            	            	 	            	            	      	Check cmdResult == OK 	            	1	 	            	Y  	1,2,4,6 	   	      
+4.2	Start DEA HK run     	1	startDEA	XDZ0000005							commandEcho 18        	            	       B 		   	   	1,2,4,6   	   	      
+   	                         	    	            	            	            	            	            	            	            	      	Check cmdResult == OK       	            			   	   	   	      	
+   	                         	    	            	            	            	            	            	            	            	      	confirm DEAhk values 	            	            		            	   	   	   	      
+5	Set FP temp to -121~C 	    	            	            	            	            	            	            	            	      	            	            	            	                         	            	   	   	   	      
+5.1	Set FP temp to -121~C    	2	ChangeConfigSetting 	WSFTNEG121     	            	            	 	            	            	      	Check cmdResult == OK 	            	1	get FP temp	            	Y  	1,2,4,6 	   	      
   	    	    	 	     	            	            	 	            	            	      	commandEcho 1220  	            	            	 	            	  	  	   	      
-5.2	dump system config.      		dumpSysConfig	RS\_0000001 	            	            		            	            	      	Check cmdResult == OK  	            	      B     	  	            	Y   	1,2,4,6	     	      
+5.2	Dump system config		dumpSysConfig	RS\_0000001 	            	            		            	            	      	Check cmdResult == OK  	            	      B     	  	            	Y   	1,2,4,6	     	      
    	                         	    	            	            	            	            	            	            	            	      	commandEcho 66   		            	 	            	   	   	   	      
-5.3	Monitor FP temp    	30	 	     	            	            	 	            	            	      	deaHousekeepingData  	            	A    	time depends on starting temp 	 	P  	1,2,4,6	   	      
 6	Power up all boards																		
 6.1	Power up all video\\boards	1	changeConfigSetting	WSVIDALLUP			 			 	Verify cmdResult==OK\\commandEcho 768		A	Wait for all video boards to power up					
 							 	1DEPSA 	ON 	 			2	Fail if DEA-A powers down					
@@ -82,6 +81,8 @@ Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telem
 												pmon	A	6 FEPMAN\_POWERON					
 												pmon	A	6 FEPMAN\_STARTLOAD					
 												pmon	A	6 FEPMAN\_ENDLOAD					
+							DPA Input I A	1DPICACU	1.1{--}1.6	A				Should be valid for BEP A or B					
+							DPA Input I B	1DPICBCU	1.1{--}1.6	A				Should be valid for BEP A or B					
 6.3	Dump System Config.\\	1	dumpSysConfig	RS\_0000001							Verify cmdResult==OK\\commandEcho 66		B			Y	1,2	60k	
 7	Science run\\on ACIS-I													Skip if video housekeeping not desired					
 7.1	Load Faint TE pblock\\	1	loadTeBlock	WT00C66014							Verify cmdResult==OK\\commandEcho 14458		A			Y	1,2	60k	
@@ -90,9 +91,11 @@ Step	Title	Time	Command	Command	Cmd	Seq	Telemetry	Telemetry	Expected	Units	Telem
 8.1	Load Faint TE pblock\\	1	loadTeBlock	WT00C68014							Verify cmdResult==OK\\commandEcho 14460		A			Y	1,2	60k	
 8.2	Start bias-only run\\	3	startScience	X2Z0000005							Verify cmdResult==OK\\commandEcho 48	scienceReport	A	Verify terminationCode==2\\in scienceReport		Y	1,2	60k	
 9	Power down all boards																		
-9.1	Power down all boards\\	1	changeConfigSetting	WSPOW00000							Verify cmdResult==OK\\commandEcho 773		A			Y	1,2	60k	
+9.1	Power down all video\\ boards and FEPs	1	changeConfigSetting	WSPOW00000							Verify cmdResult==OK\\commandEcho 773		A			Y	1,2	60k	
 							DEA Input I A	1DEICACU	0.7--0.9	A			2	Noisy current; average needed					
 														Messages:					
 												pmon	A	10 DEACCD\_POWEROFF					
 												pmon	A	6 FEPMAN\_POWEROFF					
+							DPA Input I A	1DPICACU	0.4{--}0.6	A									
+							DPA Input I B	1DPICBCU	0.4{--}0.6	A									
 9.2	Dump System Config.\\	1	dumpSysConfig	RS\_0000001							Verify cmdResult==OK\\commandEcho 66		B			Y	1,2	60k	

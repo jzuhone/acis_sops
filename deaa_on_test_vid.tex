@@ -38,7 +38,7 @@
 \vspace{0.25in}
 
 \normalsize
-\noindent{\it Last Revised: July 21, 2017}\\
+\noindent{\it Last Revised: October 2, 2017}\\
 \noindent{\bf Filename: deaa\_on\_test\_vid} \\
 
 
@@ -52,7 +52,7 @@ This is a procedure which powers up the DEA side A, powers up all 10 video board
 \be
 \item Verify that DEA B is powered off and disabled (see Constraints/Cautions, below)
 \vspace{-0.10in}
-\item {\color{red} Verify that DEA A is receiving power from the spacecraft}
+\item Verify that DEA A is receiving power from the spacecraft
 \vspace{-0.10in}
 \item Enable and turn on DEA power supply side A
 \vspace{-0.10in}
@@ -60,15 +60,17 @@ This is a procedure which powers up the DEA side A, powers up all 10 video board
 \vspace{-0.10in}
 \item Verify that the DH heater is not powered from side A
 \vspace{-0.10in}
-\item {\color{red} Warm boot the BEP}
+\item Warm boot the BEP
 \vspace{-0.10in}
-\item {\color{red} Execute a DEA housekeeping run}
+\item Execute a DEA housekeeping run
 \vspace{-0.10in}
-\item {\color{red} Set the focal plane temperature to -119.7~$^\circ$C}
+\item Set the focal plane temperature to -119.7~$^\circ$C
 \vspace{-0.10in}
 \item Power up all 10 video boards
 \vspace{-0.10in}
-\item Execute two bias-only science runs to capture video housekeeping
+\item Execute an ACIS-I bias-only science run to capture calibrated video housekeeping data
+\vspace{-0.10in}
+\item Execute an ACIS-S bias-only science run to capture calibrated video housekeeping data
 \vspace{-0.10in}
 \item Power down the 10 video boards and the 6 FEPs
 \ee
@@ -84,9 +86,9 @@ This is a procedure which powers up the DEA side A, powers up all 10 video board
 \vspace{-0.10in}
 \item Assumes that both sides of the DPA are on.
 \vspace{-0.10in}
-\item Assumes that the flight SW is running on the active BEP.
-\vspace{-0.10in}
-\item {\color{red} Assumes that the DEA was previously powered from side A.}
+\item Assumes that the DEA was previously powered from side A. 
+If it was instead powered from side B, the board 11 relays must be reset in
+addition to powering on DEA A.
 \ee
 \vspace{0.1in}
 %\vspace{0.25in}
@@ -100,11 +102,14 @@ This is a procedure which powers up the DEA side A, powers up all 10 video board
 
 In normal operations, only one side of the DEA should be powered on
 (a) to prevent conflict for control of the focal plane temperature controller,
-(b) to avoid excess current draw from the spacecraft, and (c) to avoid over-heating
-within the PSMC.
+(b) to avoid excess current draw from the spacecraft,(c) to avoid over-heating
+within the PSMC, and (d) to avoid placing a board 11 relay into the 
+``magnetic neutral position''.
 
 The DEA power status is normally indicated by the values of the 1DEPSA and
-1DEPSB flags, which should not both be 1 simultaneously.
+1DEPSB flags, which should not both be 1 simultaneously. Before sending the 
+command to power on DEA A, the DEA Input Voltage A 1DE28AVO should 
+be checked to make sure that DEA A is receiving power from the spacecraft.
 
 The DEA input current monitors (1DEIC[AB]CU) are noisy.
 To give an indication of what variation may be expected, figures 1 and 2
@@ -115,14 +120,18 @@ when either side of the DEA is unpowered, the corresponding current monitor,
 16--18~A when unpowered, as of Telemetry Database (TDB) v14. This is expected and
 not a problem.
 
-{\color{red} If the DEA powers off unexpectedly during a bakeout, the FP bakeout 
+If the DEA powers off unexpectedly during a bakeout, the FP bakeout 
 heater will lose power and this heater will NOT be re-enabled when the DEA side A 
 power is restored. Additional SW commands are necessary to activate the FP bakeout 
 heater. The DH bakeout heater is unaffected by a power loss to the DEA and will 
-therefore still be executing a bakeout if power is lost to the DEA.}
+therefore still be executing a bakeout if power is lost to the DEA.
 
-After successful execution, {\em the FP temperature control will be unregulated,
-and DEA interface A/D will be in {\color{red} high-resolution mode.}}\\
+The parameters for the threshold crossings patch, txings, will revert to defaults 
+when this is run. They should be restored to their desired values.
+
+After successful execution, {\em the FP temperature control will be regulated at 
+-119.7~$^\circ$C (if the spacecraft thermal environment allows), and DEA interface 
+A/D will be in high-resolution mode.}\\
 
 \vspace{0.15in}
 \normalsize
@@ -149,6 +158,17 @@ and DEA interface A/D will be in {\color{red} high-resolution mode.}}\\
 \item Corrected introduction to indicate that we will be powering down all video boards and all FEPs at the end
 \item Corrected numbering in table: 5.2 $\rightarrow$ 6.2
 \item Corrected number of FEPMAN\_POWEROFF messages in Step 6.1 of the table
+\end{itemize}
+
+{\bf V2.2}
+\begin{itemize}
+\item Added a step to verify that the DEA is being powered from the spacecraft
+\item Added a step to warmboot the BEP after powering on DEA-A
+\item Added a step to execute a DEA housekeeping run after warmbooting the BEP
+\item Added a step to set the focal plane temperature after the DEA housekeeping run
+\item Added comments about what will happen to the bakeout heaters if the DEA powers off during a bakeout
+\item Noted that after this procedure the DEA interface A/D will be in high-resolution mode. 
+\item Added a note that this procedure assumes that the DEA was powered from side A and what to do if it was not
 \end{itemize}
 
 \begin{landscape}
@@ -178,14 +198,14 @@ the orange line in the plot.}
 \begin{center}
 \includegraphics[width=1.2\textwidth]{deaa_on_test_vid_fig3.eps}
 \caption{Average behavior of 1DEICACU with different numbers of video boards
-powered on.}
+powered on. The plot is a 10-sample running average of the current readings.}
 \end{center}
 \end{figure}
 \end{landscape}
 
-%\newpage\
-%\vspace{0.4\textheight}
-%\bc This page is intentionally blank \ec
+\newpage\
+\vspace{0.4\textheight}
+\bc This page is intentionally blank \ec
 
 \newcommand{\tablecaptiontext}{TURN ON DEA A AND TEST VIDEO BOARDS}
 \input{deaa_on_test_vid.tab}
