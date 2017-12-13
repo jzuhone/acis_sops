@@ -29,7 +29,7 @@
 \newcommand{\axaf}{{\em AXAF}}
 \def\la{\hbox{\rlap{$<$}\lower0.5ex\hbox{$\sim$}\ }}
 
-\centerline{\large {\bf \textcolor{red}{5.9\_V2.2} SWITCH FROM DEA A TO DEA B }}
+\centerline{\large {\bf 5.9\_V2.2 SWITCH FROM DEA A TO DEA B }}
 \vspace{0.25in}
 
 \noindent{\it Last Revised: December 6, 2017}\\
@@ -38,7 +38,7 @@
 
 \noindent{\bf BRIEF FUNCTIONAL DESCRIPTION:}\\
 
-{\color{red} This is a contingency procedure to switch from powering the DEA 
+This is a contingency procedure to switch from powering the DEA 
 from the side A power supply board to the side B power supply board inside 
 the PSMC. After switching DEA input power and reestablishing control of the
 focal plane heaters, the magnetic relays that control pairs of video boards 
@@ -47,12 +47,11 @@ while verifying that the PSMC doesn't report a current overflow.
 
 Once 10 video boards have been powered up, power up 6 FEPs and execute bias-only 
 runs in the ACIS-I and ACIS-S configurations to generate accurate video-board 
-housekeeping. Once finished, power down all FEPs and video boards.}
+housekeeping. Once finished, power down all FEPs and video boards.
 
 \vspace{0.15in}
 
 \noindent The sequence of actions will be:
-{\color{red}
 \begin{itemize}
 \item Power down the video boards (skip if not powered)
 \vspace{-0.10in}
@@ -93,7 +92,6 @@ or overvoltage condition
 \vspace{-0.10in}
 \item Dump the system configuration table
 \end{itemize}
-}
 
 \vspace{0.15in}
 
@@ -106,20 +104,18 @@ science run is in progress.
 \vspace{0.15in}
 
 \noindent{\bf SPECIAL INITIAL CONDITIONS:}
-{\color{red}
 \bi
 \item Assumes that telemetry is in Format 1 or 2.
 \item Assumes that neither the bakeout heater nor the detector housing heater is
 being powered by DEA-B. If they are, switch them off and, if the procedure ends
 with the DEA powered from DEA-B, consider enabling and turning them on again
 on DEA-A.
-\ei}
+\ei
 
 \normalsize
 \noindent {\bf OPERATIONAL CONSTRAINTS/CAUTIONS:} \\
 \normalsize
 
-{\color{red}
 In normal operations, only one side of the DEA should be powered on
 (a) to prevent conflict for control of the focal plane temperature controller,
 (b) to avoid excess current draw from the spacecraft,(c) to avoid over-heating
@@ -162,11 +158,14 @@ After successful execution, {\em the FP temperature control will be regulated at
 -119.7~$^\circ$C (if the spacecraft thermal environment allows), and DEA interface 
 A/D will be in high-resolution mode.}
 
+Skipping one or more boards in the power up sequence would require different 
+WSPOW commands than are currently in this procedure.
+
 Should any of the parts of step 8 fail or be intentionally skipped, so that less 
 than 10 video boards remain powered up at the start of step 9, it will not be 
 possible to obtain correct housekeeping from any of the video boards, so steps 
 9-12 should be omitted.
-}\\
+\\
 
 \newpage
 
@@ -202,7 +201,6 @@ produce the telltales to verify the state of the relays
 \item added to ``Assumed Instrument State'', ``Assumes DEA A is on''
 \ei
 
-{\color{red}
 \item {\bf Version 2.2}
 \bi
 \item added explicit steps to verify that DEA side A is off after sending the
@@ -219,7 +217,7 @@ to power up each of the two boards controlled by that relay
 \item added figures showing behavior of 1DEICACU
 \item updated operational constraints and cautions text
 and 
-\ei}
+\ei
 \ed
 
 \begin{landscape}
