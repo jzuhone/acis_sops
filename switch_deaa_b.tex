@@ -32,7 +32,7 @@
 \centerline{\large {\bf 5.9\_V2.2 SWITCH FROM DEA A TO DEA B }}
 \vspace{0.25in}
 
-\noindent{\it Last Revised: December 6, 2017}\\
+\noindent{\it Last Revised: December 19, 2017}\\
 \noindent{\bf Filename: switch\_deaa\_b} \\
 
 
@@ -46,8 +46,9 @@ are thrown one at a time, and those two video boards are powered up separately,
 while verifying that the PSMC doesn't report a current overflow.
 
 Once 10 video boards have been powered up, power up 6 FEPs and execute bias-only 
-runs in the ACIS-I and ACIS-S configurations to generate accurate video-board 
-housekeeping. Once finished, power down all FEPs and video boards.
+runs in the ACIS-I and ACIS-S configurations {\color{red} \sout{to generate 
+accurate video-board housekeeping.}} Once finished, power down all FEPs and 
+video boards.
 
 \vspace{0.15in}
 
@@ -162,9 +163,11 @@ Skipping one or more boards in the power up sequence would require different
 WSPOW commands than are currently in this procedure.
 
 Should any of the parts of step 8 fail or be intentionally skipped, so that less 
-than 10 video boards remain powered up at the start of step 9, it will not be 
-possible to obtain correct housekeeping from any of the video boards, so steps 
-9-12 should be omitted.
+than 10 video boards remain powered up at the start of step 9, {\color{red} 
+\sout{it will not be possible to obtain correct housekeeping from any of the 
+video boards, so steps 9-12 should be omitted.} steps 9-12 should be omitted. 
+The ACIS Ops team should consult with the instrument team on the current status 
+of the instrument and develop an appropriate contingency plan.}
 \\
 
 \newpage

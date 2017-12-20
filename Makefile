@@ -55,7 +55,7 @@ deaa_on_test_vid:
 	ps2pdf deaa_on_test_vid.ps
 
 switch_deaa_b:
-	make_sop_table -p 1.8in -t 2.6in -d 2.1in -l 29,29,29,27,25,27 switch_deaa_b.tsv
+	make_sop_table -p 1.8in -t 2.6in -d 2.1in -l 29,29,29,27,25,29 switch_deaa_b.tsv
 	latex switch_deaa_b.tex; latex switch_deaa_b.tex
 	dvips switch_deaa_b.dvi -o switch_deaa_b.ps
 	ps2pdf switch_deaa_b.ps
