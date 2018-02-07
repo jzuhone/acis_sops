@@ -32,7 +32,7 @@
 \centerline{\large {\bf 5.9\_V2.2 SWITCH FROM DEA A TO DEA B }}
 \vspace{0.25in}
 
-\noindent{\it Last Revised: December 19, 2017}\\
+\noindent{\it Last Revised: February 7, 2018}\\
 \noindent{\bf Filename: switch\_deaa\_b} \\
 
 
@@ -85,9 +85,13 @@ or overvoltage condition
 \vspace{-0.10in}
 \item Power up 6 FEPs
 \vspace{-0.10in}
-\item Execute a bias-only science run in the ACIS-I configuration.
+\item Execute a bias-only CC science run in the ACIS-I configuration.
 \vspace{-0.10in}
-\item Execute a bias-only science run in the ACIS-S configuration.
+\item Execute a bias-only CC science run in the ACIS-S configuration.
+\vspace{-0.10in}
+\item If there is enough time in the comm, execute a bias-only TE science run in the ACIS-I configuration.
+\vspace{-0.10in}
+\item If there is enough time in the comm, execute a bias-only TE science run in the ACIS-S configuration.
 \vspace{-0.10in}
 \item Power down all FEPs and video boards
 \vspace{-0.10in}
@@ -219,6 +223,7 @@ to power up each of the two boards controlled by that relay
 \item added command to power down all video boards
 \item added figures showing behavior of 1DEICACU
 \item updated operational constraints and cautions text
+\item added CC-mode bias-only runs
 and 
 \ei
 \ed
