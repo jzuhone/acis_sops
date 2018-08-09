@@ -38,9 +38,9 @@ deaa_off:
 
 deab_on:
 	make_sop_table -l 24 deab_on.tsv
-	latex deaa_on.tex; latex deaa_on.tex
-	dvips deaa_on.dvi -o deaa_on.ps
-	ps2pdf deaa_on.ps
+	latex deab_on.tex; latex deab_on.tex
+	dvips deab_on.dvi -o deab_on.ps
+	ps2pdf deab_on.ps
 
 deab_off:
 	make_sop_table deab_off.tsv
@@ -55,7 +55,7 @@ deaa_on_test_vid:
 	ps2pdf deaa_on_test_vid.ps
 
 switch_deaa_b:
-	make_sop_table -p 1.8in -t 2.6in -d 2.1in -l 29,29,29,27,25,29 switch_deaa_b.tsv
+	make_sop_table -p 2.1in -t 2.6in -d 2.1in -l 30,30,29,27,25,29 switch_deaa_b.tsv
 	latex switch_deaa_b.tex; latex switch_deaa_b.tex
 	dvips switch_deaa_b.dvi -o switch_deaa_b.ps
 	ps2pdf switch_deaa_b.ps
